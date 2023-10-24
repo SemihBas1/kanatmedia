@@ -1,10 +1,11 @@
-import 'dart:convert';
+/*import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:kanatmedia/model/user_model.dart';
+import 'package:kanatmedia/utils/app_string.dart';
 
 Future<List<User>> fetchUsers() async {
-  final response = await http.get(Uri.parse('http://192.168.1.188/veri.php'));
+  final response = await http.get(Uri.parse(AppString().apiLink));
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body);
@@ -14,3 +15,4 @@ Future<List<User>> fetchUsers() async {
     throw Exception('Veriler alınamadı');
   }
 }
+*/

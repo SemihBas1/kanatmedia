@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import 'package:kanatmedia/pages/home_page.dart';
-import 'package:kanatmedia/pages/login.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();

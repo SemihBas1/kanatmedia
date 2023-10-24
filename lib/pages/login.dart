@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:kanatmedia/pages/task_page.dart';
+import 'package:kanatmedia/utils/app_string.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   String _message = '';
 
   Future<void> _login() async {
-    final username = _usernameController.text;
+    final email = _usernameController.text;
     final password = _passwordController.text;
 
     setState(() {
@@ -25,10 +25,9 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final response = await http.post(
-        Uri.parse(
-            'http://192.168.1.188/login.php'), // PHP API endpointinizi buraya ekleyin
+        Uri.parse(AppString().apiLink), // PHP API endpointinizi buraya ekleyin
         body: {
-          'username': username,
+          'email': email,
           'password': password,
         },
       );
@@ -40,8 +39,8 @@ class _LoginPageState extends State<LoginPage> {
         if (responseData['success']) {
           setState(() {
             _message = 'Başarıyla giriş yaptınız!';
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => TaskPage()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const TaskPage()));
           });
         }
         // API başarısız yanıt verdi
@@ -70,9 +69,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Kullanıcı Girişi'),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -80,21 +77,21 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Kullanıcı Adı'),
+              decoration: const InputDecoration(labelText: 'Kullanıcı Adı'),
             ),
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'Şifre'),
+              decoration: const InputDecoration(labelText: 'Şifre'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 _login();
               },
-              child: Text('Giriş Yap'),
+              child: const Text('Giriş Yap'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(_message),
           ],
         ),
@@ -102,7 +99,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
-
-/**192.168.1.188 */
