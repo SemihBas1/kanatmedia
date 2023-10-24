@@ -26,9 +26,9 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final response = await http.post(
         Uri.parse(
-            'http://192.168.1.188/login.php'), // PHP API endpointinizi buraya ekleyin
+            'http://192.168.37.212/login.php'), // PHP API endpointinizi buraya ekleyin
         body: {
-          'username': username,
+          'email': username,
           'password': password,
         },
       );

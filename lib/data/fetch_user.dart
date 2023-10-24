@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:kanatmedia/model/user_model.dart';
 
 Future<List<User>> fetchUsers() async {
-  final response = await http.get(Uri.parse('http://192.168.1.188/veri.php'));
+  final response = await http.get(Uri.parse('192.168.37.212/veri.php'));
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body);
