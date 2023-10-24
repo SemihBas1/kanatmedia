@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:kanatmedia/pages/example.dart';
 import 'dart:convert';
-import 'package:kanatmedia/pages/task_page.dart';
 import 'package:kanatmedia/utils/app_string.dart';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:kanatmedia/pages/task_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   String _message = '';
 
   Future<void> _login() async {
-    final email = _usernameController.text;
+    final username = _usernameController.text;
     final password = _passwordController.text;
 
     setState(() {
@@ -27,39 +33,31 @@ class _LoginPageState extends State<LoginPage> {
       final response = await http.post(
         Uri.parse(AppString().apiLink), // PHP API endpointinizi buraya ekleyin
         body: {
-          'email': email,
+          'email': username,
           'password': password,
         },
       );
 
-      // HTTP isteği başarılı bir şekilde tamamlandığında
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
-        // API başarıyla yanıt verdi
         if (responseData['success']) {
           setState(() {
             _message = 'Başarıyla giriş yaptınız!';
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const TaskPage()));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LoginPage()));
           });
-        }
-        // API başarısız yanıt verdi
-        else {
+        } else {
           setState(() {
             final errorMessage = responseData['message'];
             _message = 'Giriş başarısız: $errorMessage';
           });
         }
-      }
-      // HTTP isteği başarısız oldu
-      else {
+      } else {
         setState(() {
           _message = 'HTTP Hatası: ${response.statusCode}';
         });
       }
-    }
-    // İstek gönderme sırasında hata oluştu
-    catch (e) {
+    } catch (e) {
       setState(() {
         _message = 'İstek gönderilirken hata oluştu: $e';
       });
@@ -99,3 +97,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+
+
+/**192.168.1.188 */
